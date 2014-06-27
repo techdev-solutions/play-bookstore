@@ -19,13 +19,15 @@
             <h4>@book.title</h4>
             <p><small>Published: @book.created.format("yyyy-MM-dd")</small></p>
             <p>@book.description</p>
-            @subjectPresent() {
+            @subjectPresentOr() {
                 @if(actions.CurrentAccount.get().owns(book)) {
                     <a href="#" class="btn btn-primary">Download</a>
+                } else {
+                    <a href="@routes.Orders.add(book.id)" class="btn btn-success">Buy &dollar; @book.price</a>
                 }
+            } {
+                <a href="@routes.Orders.add(book.id)" class="btn btn-success">Buy &dollar; @book.price</a>
             }
-
-            <a href="@routes.Orders.add(book.id)" class="btn btn-success">Buy &dollar; @book.price</a>
         </div>
     </div>
     @if(book.hasReviews) {

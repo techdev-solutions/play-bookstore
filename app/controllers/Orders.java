@@ -29,11 +29,21 @@ public class Orders extends Controller {
             return redirect(routes.Books.all());
         }
 
+        if (CurrentAccount.get().owns(book)) {
+            flash("info", "You already own that book - just download it!");
+            return redirect(routes.Books.show(id));
+        }
+
         return ok(views.html.orders.add.render(ORDER_FORM, book));
     }
 
     @SubjectPresent(deferred = true)
     public static Result create(Long book) {
+        if (CurrentAccount.get().owns(Book.find.ref(book))) {
+            flash("info", "You already own that book - just download it!");
+            return redirect(routes.Books.show(book));
+        }
+        
         Form<Order> form = ORDER_FORM.bindFromRequest();
         if (form.hasErrors()) {
             flash("error", "Something went wrong!");
