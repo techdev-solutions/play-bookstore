@@ -1,0 +1,86 @@
+@(book: Book)
+
+@import be.objectify.deadbolt.java.views.html._
+@import be.objectify.deadbolt.core.utils.TemplateUtils._
+
+@main(book.title) {
+    <div class="row marketing">
+        <div class="col-lg-4 text-center">
+            @if(book.hasImage()) {
+                <img class="img-rounded" style="height: 180px;" src="@book.image.getURI()">
+            } else {
+                <img class="img-rounded" alt="150x200" style="width: 180px; height: 180px;" src="@routes.Assets.at("images/book_blank.jpg")">
+            }
+        </div>
+        <div class="col-lg-8">
+            @restrict(la(as("admin"))) {
+                <a class="glyphicon glyphicon-cog edit" href="@routes.Books.edit(book.id)"></a>
+            }
+            <h4>@book.title</h4>
+            <p><small>Published: @book.created.format("yyyy-MM-dd")</small></p>
+            <p>@book.description</p>
+            @subjectPresent() {
+                @if(actions.CurrentAccount.get().owns(book)) {
+                    <a href="#" class="btn btn-primary">Download</a>
+                }
+            }
+
+            <a href="@routes.Orders.add(book.id)" class="btn btn-success">Buy &dollar; @book.price</a>
+        </div>
+    </div>
+    @if(book.hasReviews) {
+        <div class="row marketing">
+            <div class="col-lg-12">
+                <h4>Recent Reviews</h4>
+            </div>
+        </div>
+        @book.reviews.map { review =>
+            <div class="row marketing">
+                <div class="col-lg-2">
+                    <img class="img-rounded" alt="150x200" style="width: 100px; height: 100px;" src="@routes.Assets.at("images/user_blank.png")">
+                </div>
+                <div class="col-lg-9 col-lg-offset-1">
+                    <div class="row">
+                        <b>@review.author.getFullname</b>
+                    </div>
+                    <div class="row">
+                        <p>@review.text</p>
+                    </div>
+                    <div class="row">
+                        <small><em>written on @review.getCreated.format("dd.MM.yyyy HH:mm:ss")</em></small>
+                    </div>
+                </div>
+            </div>
+        }
+    } else {
+        <div class="row marketing">
+            <div class="col-lg-12">
+                <h4>No Reviews Yet</h4>
+            </div>
+        </div>
+    }
+    @subjectPresent() {
+        @if(actions.CurrentAccount.get().canReview(book)) {
+            <div class="row marketing">
+                <div class="col-lg-12" id="reviewbutton">
+                    <button type="button" class="btn btn-primary" onclick="javascript:reviewform.style.display='block';reviewbutton.style.display='none';">Add Review</button>
+                </div>
+                <div class="col-lg-12" id="reviewform" style="display: none">
+                    <h4>Add a Review</h4>
+                    <form action="@routes.Books.review(book.id)" class="form-horizontal" role="form" method="post">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <textarea class="form-control" placeholder="Say something..." id="review" name="review"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <button type="submit" class="btn btn-primary">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+}

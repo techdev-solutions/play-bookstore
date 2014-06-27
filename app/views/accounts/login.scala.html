@@ -1,0 +1,29 @@
+@(login_form: Form[Credentials])
+
+@main("Login") {
+    <div class="row marketing">
+        <div class="col-lg-6 col-lg-offset-3">
+            <form action="@routes.Accounts.authenticate" method="post" class="form-horizontal" role="form">
+                <input type="hidden" name="next" value="@request.getQueryString("next")"/>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="email" class="form-control" placeholder="Email" id="email" name="email" value="@login_form("email").value">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="password" class="form-control" placeholder="Password" id="password" name="password" value="@login_form("password").value">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="link" class="btn btn-link"><a href="@routes.Accounts.signup">Sign up now!</a></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+}

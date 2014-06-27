@@ -1,0 +1,52 @@
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(http://fonts.googleapis.com/css?family=UnifrakturCook:700);
+
+body {
+    background: url('../images/shattered-island.gif') top repeat;
+    background-attachment: fixed;
+
+    padding: 0;
+}
+
+body>.container {
+    background-color: rgba(255, 255, 255, 1);
+
+    padding: 20px 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.bg-message {
+    padding: 15px;
+}
+
+.header .text-muted {
+    color: #444444;
+    font-size: 50px;
+}
+
+.retro {
+    font-family: 'UnifrakturCook', cursive;
+}
+
+.header, .footer {
+    border-color: #aaaaaa;
+}
+
+h1, h2 h3, h4, h5, h6 {
+    font-family: 'Montserrat';
+}
+
+a.edit {
+    font-size: 24px;
+    float: right;
+}
+
+.footer {
+    text-align: center;
+}
+
+.container {
+    max-width: 930px;
+}

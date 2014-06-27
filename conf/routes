@@ -1,0 +1,18 @@
+GET         /signup                            controllers.Accounts.signup
+POST        /signup                            controllers.Accounts.create
+GET         /login                             controllers.Accounts.login
+POST        /login                             controllers.Accounts.authenticate
+GET         /logout                            controllers.Accounts.logout
+
+GET         /books                             controllers.Books.all
+GET         /books/$book<[0-9]+>               controllers.Books.show(book: Long)
+GET         /books/add                         controllers.Books.add
+POST        /books/add                         controllers.Books.create
+GET         /books/$book<[0-9]+>/buy           controllers.Orders.add(book: Long)
+POST        /books/$book<[0-9]+>/buy           controllers.Orders.create(book: Long)
+GET         /books/$book<[0-9]+>/edit          controllers.Books.edit(book: Long)
+POST        /books/$book<[0-9]+>/edit          controllers.Books.update(book: Long)
+POST        /books/$book<[0-9]+>/review        controllers.Books.review(book: Long)
+GET         /orders                            controllers.Orders.all
+
+GET         /assets/*file                      controllers.Assets.at(path="/public", file)

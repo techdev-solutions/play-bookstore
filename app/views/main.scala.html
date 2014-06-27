@@ -1,0 +1,72 @@
+@(title: String, scripts: Html = Html(""))(content: Html)
+
+@import be.objectify.deadbolt.java.views.html._
+@import be.objectify.deadbolt.core.utils.TemplateUtils._
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Ye Olde Bookstore | @title</title>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Language" content="en" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/jumbotron-arrow.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.10.2.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        @scripts
+    </head>
+    <body>
+        @tags.github("techdev-solutions", "play-bookstore")
+        <div class="container">
+            <div class="header">
+                <ul class="nav nav-pills pull-right">
+                    <li><a href="@routes.Books.all">Home</a></li>
+                    @subjectPresentOr() {
+                        <li class="dropdown">
+                            <a id="drop" role="button" data-toggle="dropdown" href="#">
+                                @if(actions.CurrentAccount.get() != null) {
+                                    @actions.CurrentAccount.get().getFullname <b class="caret"></b>
+                                }
+                            </a>
+                            <ul id="menu" class="dropdown-menu" role="menu" aria-labelledby="drop">
+                                @restrict(la(as("admin"))) {
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="@routes.Books.add">@Messages("add_book")</a>
+                                    </li>
+                                }
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="@routes.Orders.all">@Messages("my_orders")</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menitem" tabindex="-1" href="@routes.Accounts.logout">@Messages("logout")</a>
+                                </li>
+                            </ul>
+                        </li>
+                    } {
+                        <li class="active"><a href="@routes.Accounts.login">@Messages("login")</a></li>
+                    }
+                </ul>
+                <h3 class="text-muted retro">
+                    @Messages("title")
+                </h3>
+            </div>
+            @if(flash.containsKey("error")) {
+                @tags.notify("danger", flash.get("error"))
+            }
+            @if(flash.containsKey("success")) {
+                @tags.notify("success", flash.get("success"))
+            }
+            @if(flash.containsKey("info")) {
+                @tags.notify("info", flash.get("info"))
+            }
+            @content
+            <div class="footer">
+            </div>
+        </div>
+    </body>
+</html>

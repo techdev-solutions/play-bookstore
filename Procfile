@@ -1,0 +1,1 @@
+web: target/start -Dhttp.port=${PORT} -Dconfig.file=conf/heroku.conf -DapplyEvolutions.default=true ${JAVA_OPTS}

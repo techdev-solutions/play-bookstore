@@ -1,0 +1,41 @@
+@(book_form: Form[Book])
+
+@main("Add a new book") {
+    <div class="row marketing">
+        <div class="col-lg-6 col-lg-offset-3 text-center">
+            <h1>Add a new book</h1>
+        </div>
+        <div class="col-lg-6 col-lg-offset-3">
+            <form action="@routes.Books.create" class="form-horizontal" method="post" role="form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" value="@book_form("title").value">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6 col-sm-12">
+                        <input class="form-control" id="price" name="price" value="@book_form("price").value" placeholder="Price">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <textarea class="form-control" rows="3" id="description" name="description" placeholder="Enter description">@book_form("description").value</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="file" class="form-control" id="image" name="image">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-link"><a href="@routes.Books.all">Cancel</a></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+}

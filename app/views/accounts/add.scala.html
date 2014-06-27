@@ -1,0 +1,43 @@
+@(account_form: Form[Account])
+
+@main("Create account") {
+    <div class="row marketing">
+        <div class="col-lg-12 text-center">
+            <h1>Create account</h1>
+        </div>
+        <div class="col-lg-6 col-lg-offset-3">
+            <form class="form-horizontal" action="@routes.Accounts.create" method="post" role="form">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" placeholder="First name" id="firstname" name="firstname" value="@account_form("firstname").value">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" placeholder="Last name" id="lastname" name="lastname" value="@account_form("lastname").value">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="email" class="form-control" placeholder="Email" id="email" name="email" value="@account_form("email").value">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="password" class="form-control" placeholder="Password" id="password" name="password" value="@account_form("password").value">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="password" class="form-control" placeholder="Confirm password" id="confirmation" name="confirmation" value="@account_form("confirmation").value">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+}
