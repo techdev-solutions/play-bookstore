@@ -19,7 +19,7 @@ public class CurrentAccount extends Action.Simple {
             if (account != null) {
                 context.args.put("account", account);
             } else {
-                context.session().clean();
+                context.session().clear();
             }
         }
 
