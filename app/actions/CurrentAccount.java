@@ -18,6 +18,8 @@ public class CurrentAccount extends Action.Simple {
             Account account = Account.byEmail(email);
             if (account != null) {
                 context.args.put("account", account);
+            } else {
+                context.session().clean();
             }
         }
 
